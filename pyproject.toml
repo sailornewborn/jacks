@@ -1,0 +1,17 @@
+[project]
+name = "jacks"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Forai", email = "159516259+sailornewborn@users.noreply.github.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "base58>=2.1.1",
+    "bitcoinlib>=0.7.8",
+]
+
+[build-system]
+requires = ["uv_build>=0.10.4,<0.11.0"]
+build-backend = "uv_build"
