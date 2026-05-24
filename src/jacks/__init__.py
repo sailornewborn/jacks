@@ -34,3 +34,11 @@ def get_key_address_str(data: int) -> str:
     k = get_key(data)
     k_add = get_address_str_from_keyobj(k)
     return k_add
+
+
+def get_int_to_list(data: int) -> list[int]:
+    str_version = str(data)
+    the_list = []
+    for item in str_version:
+        the_list.append(int(item))
+    return the_list
