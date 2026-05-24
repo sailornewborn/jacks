@@ -1,5 +1,6 @@
 from bitcoinlib.keys import Key
 from base58 import b58decode_check
+from random import choice
 
 
 def get_key(data: int) -> Key:
@@ -43,9 +44,19 @@ def get_int_to_list(data: int) -> list[int]:
         the_list.append(int(item))
     return the_list
 
+
 def get_int_to_wrapped_list(data: int) -> list[list[int]]:
     the_unwrapped_list = get_int_to_list(data)
     holder = []
     for item in the_unwrapped_list:
         holder.append([item])
+    return holder
+
+
+def get_random_list(
+    length_data: int, one_block_data: list[int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+):
+    holder = []
+    for i in range(length_data):
+        holder.append(choice(one_block_data))
     return holder
