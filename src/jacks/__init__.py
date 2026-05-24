@@ -62,16 +62,20 @@ def get_random_list(
     return holder
 
 
-def get_underscore_from_int_to_str(data: int) -> str:
+def get_underscore_from_int_to_str(data: int, marker: str = ",") -> str:
     the_str_version = str(data)
     the_holder_list = []
     counter = 0
     for item in the_str_version[::-1]:
-        counter += 1
         if counter == 3:
             counter = 0
-            the_holder_list.append("_")
+            the_holder_list.append(marker)
+            the_holder_list.append(item)
         else:
             the_holder_list.append(item)
+        counter += 1
+
+    if the_holder_list[::-1][0] == marker:
+        the_holder_list.pop(-1)
     the_final_str = "".join(the_holder_list[::-1])
     return the_final_str
