@@ -42,3 +42,10 @@ def get_int_to_list(data: int) -> list[int]:
     for item in str_version:
         the_list.append(int(item))
     return the_list
+
+def get_int_to_wrapped_list(data: int) -> list[list[int]]:
+    the_unwrapped_list = get_int_to_list(data)
+    holder = []
+    for item in the_unwrapped_list:
+        holder.append([item])
+    return holder
