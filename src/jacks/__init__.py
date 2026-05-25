@@ -1,3 +1,5 @@
+from typing import Any, Literal
+
 from bitcoinlib.keys import Key
 from base58 import b58decode_check
 from random import choice
@@ -79,3 +81,25 @@ def get_underscore_from_int_to_str(data: int, marker: str = ",") -> str:
         the_holder_list.pop(-1)
     the_final_str = "".join(the_holder_list[::-1])
     return the_final_str
+
+
+def get_list_padded_with_extra_length_with_targeted_position_and_char(
+    list_data: list,
+    pad_from_position_data: Literal["right", "left"],
+    extra_length: int,
+    char_you_want: Any,
+):
+    holder = []
+    for item in list_data:
+        holder.append(item)
+    if pad_from_position_data == "left":
+        for i in range(extra_length):
+            holder.insert(0, char_you_want)
+    elif pad_from_position_data == "right":
+        for i in range(extra_length):
+            holder.append(char_you_want)
+    else:
+        print(f"Unknown position [{pad_from_position_data}]")
+        return False
+
+    return holder
