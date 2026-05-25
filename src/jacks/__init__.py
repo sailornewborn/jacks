@@ -103,3 +103,24 @@ def get_list_padded_with_extra_length_with_targeted_position_and_char(
         return False
 
     return holder
+
+
+def get_int_to_list_int(data: int) -> list[int]:
+    str_version = str(data)
+    holder = []
+    for digit in str_version:
+        holder.append(int(digit))
+    return holder
+
+
+def get_key_int_list_to_address_int_list(data: list[int]) -> list[int]:
+    the_str_version = ""
+    for digit in data:
+        the_str_version += str(digit)
+    the_int = int(the_str_version)
+    int_address = get_key_address_int(the_int)
+    str_int_address = str(int_address)
+    address_list_holder = []
+    for digit in str_int_address:
+        address_list_holder.append(int(digit))
+    return address_list_holder
