@@ -136,3 +136,26 @@ def get_extra_list(
     return get_list_padded_with_extra_length_with_targeted_position_and_char(
         list_data, pad_from_position_data, extra_length, char_you_want
     )
+
+
+def get_auto_united_length(
+    the_one_to_modify: list,
+    the_reference: list,
+    pad_position: Literal["left", "right"],
+    pad_char: Any,
+) -> list:
+    the_one_to_modify_length = len(the_one_to_modify)
+    the_reference_length = len(the_reference)
+    if the_one_to_modify_length == the_reference_length:
+        return the_one_to_modify
+    elif the_one_to_modify_length > the_reference_length:
+        raise Exception(
+            "the length of the_one_to_modify is even larger than the length of the_reference"
+        )
+    elif the_one_to_modify_length < the_reference_length:
+        return get_extra_list(
+            the_one_to_modify,
+            pad_position,
+            the_reference_length - the_one_to_modify_length,
+            pad_char,
+        )
