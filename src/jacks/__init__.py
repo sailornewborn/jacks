@@ -124,3 +124,15 @@ def get_key_int_list_to_address_int_list(data: list[int]) -> list[int]:
     for digit in str_int_address:
         address_list_holder.append(int(digit))
     return address_list_holder
+
+
+# this is a wrapper for [get_list_padded_with_extra_length_with_targeted_position_and_char]
+def get_extra_list(
+    list_data: list,
+    pad_from_position_data: Literal["right", "left"],
+    extra_length: int,
+    char_you_want: Any,
+):
+    return get_list_padded_with_extra_length_with_targeted_position_and_char(
+        list_data, pad_from_position_data, extra_length, char_you_want
+    )
