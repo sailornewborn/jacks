@@ -178,3 +178,8 @@ class GetAll:
     def __init__(self,mother_int: int = 1):
         self.mother_int = mother_int
         self.mother_int_list = get_int_to_list_int(self.mother_int)
+        self.son_address_int = get_key_address_int(self.mother_int)
+        self.son_address_int_list = get_int_to_list_int(self.son_address_int)
+    
+    def auto_reset(self,new_mother_int: int):
+        self.__init__(new_mother_int)

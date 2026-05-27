@@ -1,5 +1,7 @@
 import psutil
 from socket import AF_INET
+
+
 def get_LAN_ip_windows() -> str:
     possible_ip = None
     all_interfaces = psutil.net_if_addrs()
