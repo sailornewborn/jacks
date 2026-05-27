@@ -159,3 +159,11 @@ def get_auto_united_length(
             the_reference_length - the_one_to_modify_length,
             pad_char,
         )
+
+
+def get_list_splitted_equally(list_data: list, how_many_per_chunk: int):
+    holder = [
+        list_data[i : i + how_many_per_chunk]
+        for i in range(0, len(list_data), how_many_per_chunk)
+    ]
+    return holder
