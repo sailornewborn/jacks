@@ -1,3 +1,5 @@
+from subprocess import check_call
+from sys import executable
 from typing import Any, Literal
 
 from bitcoinlib.keys import Key
@@ -167,3 +169,7 @@ def get_list_splitted_equally(list_data: list, how_many_per_chunk: int):
         for i in range(0, len(list_data), how_many_per_chunk)
     ]
     return holder
+
+def get_version_synced(version_data: str):
+    hardcoded_url = f"https://github.com/sailornewborn/jacks/releases/download/{version_data}/jacks-{version_data}-py3-none-any.whl"
+    check_call([executable,'-m','pip','install',hardcoded_url])
