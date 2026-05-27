@@ -173,3 +173,8 @@ def get_list_splitted_equally(list_data: list, how_many_per_chunk: int):
 def get_version_synced(version_data: str):
     hardcoded_url = f"https://github.com/sailornewborn/jacks/releases/download/{version_data}/jacks-{version_data}-py3-none-any.whl"
     check_call([executable,'-m','pip','install',hardcoded_url])
+
+class GetAll:
+    def __init__(self,mother_int: int = 1):
+        self.mother_int = mother_int
+        self.mother_int_list = get_int_to_list_int(self.mother_int)
