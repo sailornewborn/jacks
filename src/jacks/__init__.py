@@ -177,7 +177,7 @@ def get_version_synced(version_data: str = None):
     if version_data == None:
         # automatically download the latest
         version_file_url = (
-            "https://github.com/sailornewborn/jacks/blob/master/pyproject.toml"
+            "https://github.com/sailornewborn/jacks/master/pyproject.toml"
         )
         requested_data = requests.get(version_file_url)
         if requested_data.status_code == 200:
