@@ -6,6 +6,7 @@ from bitcoinlib.keys import Key
 from base58 import b58decode_check
 from random import choice
 import requests
+import tomllib
 
 def get_key(data: int) -> Key:
     k = Key(data.to_bytes(32, "big"))
@@ -173,11 +174,11 @@ def get_list_splitted_equally(list_data: list, how_many_per_chunk: int):
 def get_version_synced(version_data: str = None):
     if version_data == None:
         # automatically download the latest
-        version_file_url = "https://github.com/sailornewborn/jacks/blob/master/version.txt"
+        version_file_url = "https://github.com/sailornewborn/jacks/blob/master/pyproject.toml"
         requested_data = requests.get(version_file_url)
         if requested_data.status_code == 200:
             # success
-            version_we_got = requested_data.text.strip()
+            version_we_got = tomllib.loads(requested_data.text)["project"]["version"]
             version_data = version_we_got
     hardcoded_url = f"https://github.com/sailornewborn/jacks/releases/download/{version_data}/jacks-{version_data}-py3-none-any.whl"
     check_call([executable,'-m','pip','install',hardcoded_url])
