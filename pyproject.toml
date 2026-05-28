@@ -1,6 +1,6 @@
 [project]
 name = "jacks"
-version = "1.1.0"
+version = "1.2.0"
 description = "Add your description here"
 readme = "README.md"
 authors = [
@@ -11,6 +11,7 @@ dependencies = [
     "base58>=2.1.1",
     "bitcoinlib>=0.7.8",
     "psutil>=7.2.2",
+    "requests>=2.34.2",
 ]
 
 [build-system]

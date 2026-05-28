@@ -187,12 +187,13 @@ wheels = [
 
 [[package]]
 name = "jacks"
-version = "1.1.0"
+version = "1.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "base58" },
     { name = "bitcoinlib" },
     { name = "psutil" },
+    { name = "requests" },
 ]
 
 [package.metadata]
@@ -200,6 +201,7 @@ requires-dist = [
     { name = "base58", specifier = ">=2.1.1" },
     { name = "bitcoinlib", specifier = ">=0.7.8" },
     { name = "psutil", specifier = ">=7.2.2" },
+    { name = "requests", specifier = ">=2.34.2" },
 ]
 
 [[package]]

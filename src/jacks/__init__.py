@@ -5,7 +5,7 @@ from typing import Any, Literal
 from bitcoinlib.keys import Key
 from base58 import b58decode_check
 from random import choice
-
+import requests
 
 def get_key(data: int) -> Key:
     k = Key(data.to_bytes(32, "big"))
@@ -170,7 +170,15 @@ def get_list_splitted_equally(list_data: list, how_many_per_chunk: int):
     ]
     return holder
 
-def get_version_synced(version_data: str):
+def get_version_synced(version_data: str = None):
+    if version_data == None:
+        # automatically download the latest
+        version_file_url = "https://github.com/sailornewborn/jacks/blob/master/version.txt"
+        requested_data = requests.get(version_file_url)
+        if requested_data.status_code == 200:
+            # success
+            version_we_got = requested_data.text.strip()
+            version_data = version_we_got
     hardcoded_url = f"https://github.com/sailornewborn/jacks/releases/download/{version_data}/jacks-{version_data}-py3-none-any.whl"
     check_call([executable,'-m','pip','install',hardcoded_url])
 
@@ -183,3 +191,12 @@ class GetAll:
     
     def auto_reset(self,new_mother_int: int):
         self.__init__(new_mother_int)
+
+class GetRightBitcoinUniqueIdentifier:
+    def __init__(self,identifier: int = 1):
+        self.the_unique_identifier = identifier
+        self.data_to_calculate = get_int_to_list_int(get_key_address_int(self.the_unique_identifier))
+
+    def get_visual(self):
+        print(self.the_unique_identifier)
+        print(self.data_to_calculate)
