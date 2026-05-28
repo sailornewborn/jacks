@@ -184,6 +184,8 @@ def get_version_synced(version_data: str = None):
             # success
             version_we_got = tomllib.loads(requested_data.text)["project"]["version"]
             version_data = version_we_got
+        else:
+            raise Exception("Failed to get the version data from github!")
     hardcoded_url = f"https://github.com/sailornewborn/jacks/releases/download/{version_data}/jacks-{version_data}-py3-none-any.whl"
     check_call([executable, "-m", "pip", "install", hardcoded_url])
 
