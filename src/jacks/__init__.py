@@ -244,9 +244,10 @@ class GetUniqueIdentifier:
 
 # put this function before any real logic!
 def get_currentpage_to_preprocessing(
+    file_var,
     overwrite_or_append: Literal["overwrite", "append"] = "append",
 ):
-    current_file_path_obj = Path(__file__)
+    current_file_path_obj = Path(file_var)
     current_file_texts = current_file_path_obj.read_text()
     current_file_text_lines = current_file_texts.splitlines()
     for line in current_file_text_lines:
