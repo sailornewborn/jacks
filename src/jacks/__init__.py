@@ -7,6 +7,8 @@ from base58 import b58decode_check
 from random import choice
 import requests
 import tomllib
+import psutil
+from socket import AF_INET
 
 
 def get_key(data: int) -> Key:
@@ -176,9 +178,7 @@ def get_list_splitted_equally(list_data: list, how_many_per_chunk: int):
 def get_version_synced(version_data: str = None):
     if version_data == None:
         # automatically download the latest
-        version_file_url = (
-            "https://github.com/sailornewborn/jacks/raw/refs/heads/master/pyproject.toml"
-        )
+        version_file_url = "https://github.com/sailornewborn/jacks/raw/refs/heads/master/pyproject.toml"
         requested_data = requests.get(version_file_url)
         if requested_data.status_code == 200:
             # success
@@ -211,3 +211,29 @@ class GetRightBitcoinUniqueIdentifier:
     def get_visual(self):
         print(self.the_unique_identifier)
         print(self.data_to_calculate)
+
+
+def get_LAN_ip_windows() -> str:
+    possible_ip = None
+    all_interfaces = psutil.net_if_addrs()
+    for name, infos in all_interfaces.items():
+        for set in infos:
+            if set.address.startswith("192.") and set.family == AF_INET:
+                possible_ip = set.address
+    return possible_ip
+
+class GetUniqueIdentifier:
+    # here we set the most significant number the very left one
+    def __init__(self, block_size: int = 10):
+        self.data_to_calculate: list[int] = None
+        self.block_size: int = block_size
+        self.unique_identifier: int = None
+
+    def fill_data(self, data: list[int]):
+        self.data_to_calculate = data
+
+    def calculate_unique_identifier(self):
+        identifier_sum = 0
+        for number in self.data_to_calculate:
+            identifier_sum = (number + identifier_sum) * self.block_size
+        self.unique_identifier = int(identifier_sum / self.block_size)
