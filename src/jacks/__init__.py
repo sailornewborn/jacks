@@ -271,3 +271,18 @@ def get_currentpage_to_preprocessing(
             actual_preprocessing_file_obj.write_text(new_codes)
     else:
         raise Exception(f"Unrecognized option! {overwrite_or_append}")
+
+
+# here we default the numeric base to 10
+def get_form_into_binary_list(accepted_form: list[int] | int) -> list[int]:
+    if isinstance(accepted_form, list[int]):
+        joint_form = int("".join([str(i) for i in accepted_form]))
+        bin_str = bin(joint_form)[2:]
+        list_form = list(bin_str)
+        list_form = [int(i) for i in list_form]
+        return list_form
+    elif isinstance(accepted_form, int):
+        bin_str = bin(accepted_form)[2:]
+        list_form = list(bin_str)
+        list_form = [int(i) for i in list_form]
+        return list_form
