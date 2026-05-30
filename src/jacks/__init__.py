@@ -286,3 +286,12 @@ def get_form_into_binary_list(accepted_form: list[int] | int) -> list[int]:
         list_form = list(bin_str)
         list_form = [int(i) for i in list_form]
         return list_form
+
+
+def get_int_from_existing_address(address: str = "") -> int:
+    if address == "":
+        prize_add = "12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"
+        address = prize_add
+    prize_add_byte = b58decode_check(address)[1:]
+    prize_add_int = int.from_bytes(prize_add_byte)
+    return prize_add_int
