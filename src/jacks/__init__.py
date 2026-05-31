@@ -275,7 +275,7 @@ def get_currentpage_to_preprocessing(
 
 # here we default the numeric base to 10
 def get_form_into_binary_list(accepted_form: list[int] | int) -> list[int]:
-    if isinstance(accepted_form, list[int]):
+    if isinstance(accepted_form, list):
         joint_form = int("".join([str(i) for i in accepted_form]))
         bin_str = bin(joint_form)[2:]
         list_form = list(bin_str)
