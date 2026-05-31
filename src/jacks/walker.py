@@ -1,4 +1,4 @@
-from . import *
+from jacks import *
 
 class GetWalker:
     def __init__(self,start:int,stop:int):

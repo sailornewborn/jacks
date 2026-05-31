@@ -1,4 +1,4 @@
-from . import get_key_address_int
+from jacks import *
 class GetPrimerFire:
     def __init__(self, primer: int = 1):
         self.primer = primer
