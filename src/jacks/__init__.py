@@ -296,3 +296,11 @@ def get_int_from_existing_address(address: str = "") -> int:
     prize_add_byte = b58decode_check(address)[1:]
     prize_add_int = int.from_bytes(prize_add_byte)
     return prize_add_int
+
+def get_primer_fired(primer: int = 1,times: int = 100) -> list[int]:
+    primer_holder = []
+    primer_holder.append(primer)
+    for i in range(times):
+        primer = get_key_address_int(primer)
+        primer_holder.append(primer)
+    return primer_holder
