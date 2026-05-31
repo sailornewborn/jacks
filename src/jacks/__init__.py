@@ -7,6 +7,7 @@ from base58 import b58decode_check
 from random import choice
 import requests
 import tomllib
+from jacks.revolver import *
 import psutil
 from socket import AF_INET
 from site import getsitepackages
