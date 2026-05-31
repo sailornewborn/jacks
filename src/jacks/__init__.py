@@ -10,7 +10,7 @@ import tomllib
 import psutil
 from socket import AF_INET
 from site import getsitepackages
-
+from jacks.walker import *
 
 def get_key(data: int) -> Key:
     k = Key(data.to_bytes(32, "big"))
