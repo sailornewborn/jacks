@@ -304,3 +304,9 @@ def get_primer_fired(primer: int = 1,times: int = 100) -> list[int]:
         primer = get_key_address_int(primer)
         primer_holder.append(primer)
     return primer_holder
+
+def get_primer_fired_and_printed(primer: int = 1, times: int = 100) -> list[int]:
+    a = get_primer_fired(primer,times)
+    for item in a:
+        print(item)
+    return a
