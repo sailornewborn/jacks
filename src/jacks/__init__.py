@@ -13,6 +13,7 @@ from socket import AF_INET
 from site import getsitepackages
 from jacks.walker import *
 
+
 def get_key(data: int) -> Key:
     k = Key(data.to_bytes(32, "big"))
     return k
@@ -64,7 +65,7 @@ def get_int_to_wrapped_list(data: int) -> list[list[int]]:
 
 
 def get_random_list(
-    length_data: int, one_block_data: list[int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        length_data: int, one_block_data: list[int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 ):
     holder = []
     for i in range(length_data):
@@ -92,10 +93,10 @@ def get_underscore_from_int_to_str(data: int, marker: str = ",") -> str:
 
 
 def get_list_padded_with_extra_length_with_targeted_position_and_char(
-    list_data: list,
-    pad_from_position_data: Literal["right", "left"],
-    extra_length: int,
-    char_you_want: Any,
+        list_data: list,
+        pad_from_position_data: Literal["right", "left"],
+        extra_length: int,
+        char_you_want: Any,
 ):
     holder = []
     for item in list_data:
@@ -136,10 +137,10 @@ def get_key_int_list_to_address_int_list(data: list[int]) -> list[int]:
 
 # this is a wrapper for [get_list_padded_with_extra_length_with_targeted_position_and_char]
 def get_extra_list(
-    list_data: list,
-    pad_from_position_data: Literal["right", "left"],
-    extra_length: int,
-    char_you_want: Any,
+        list_data: list,
+        pad_from_position_data: Literal["right", "left"],
+        extra_length: int,
+        char_you_want: Any,
 ):
     return get_list_padded_with_extra_length_with_targeted_position_and_char(
         list_data, pad_from_position_data, extra_length, char_you_want
@@ -147,10 +148,10 @@ def get_extra_list(
 
 
 def get_auto_united_length(
-    the_one_to_modify: list,
-    the_reference: list,
-    pad_position: Literal["left", "right"],
-    pad_char: Any,
+        the_one_to_modify: list,
+        the_reference: list,
+        pad_position: Literal["left", "right"],
+        pad_char: Any,
 ) -> list:
     the_one_to_modify_length = len(the_one_to_modify)
     the_reference_length = len(the_reference)
@@ -171,7 +172,7 @@ def get_auto_united_length(
 
 def get_list_splitted_equally(list_data: list, how_many_per_chunk: int):
     holder = [
-        list_data[i : i + how_many_per_chunk]
+        list_data[i: i + how_many_per_chunk]
         for i in range(0, len(list_data), how_many_per_chunk)
     ]
     return holder
@@ -245,8 +246,8 @@ class GetUniqueIdentifier:
 
 # put this function before any real logic!
 def get_currentpage_to_preprocessing(
-    file_var,
-    overwrite_or_append: Literal["overwrite", "append"] = "append",
+        file_var,
+        overwrite_or_append: Literal["overwrite", "append"] = "append",
 ):
     current_file_path_obj = Path(file_var)
     current_file_texts = current_file_path_obj.read_text()
@@ -297,7 +298,8 @@ def get_int_from_existing_address(address: str = "") -> int:
     prize_add_int = int.from_bytes(prize_add_byte)
     return prize_add_int
 
-def get_primer_fired(primer: int = 1,times: int = 100) -> list[int]:
+
+def get_primer_fired(primer: int = 1, times: int = 100) -> list[int]:
     primer_holder = []
     primer_holder.append(primer)
     for i in range(times):
@@ -305,8 +307,38 @@ def get_primer_fired(primer: int = 1,times: int = 100) -> list[int]:
         primer_holder.append(primer)
     return primer_holder
 
+
 def get_primer_fired_and_printed(primer: int = 1, times: int = 100) -> list[int]:
-    a = get_primer_fired(primer,times)
+    a = get_primer_fired(primer, times)
     for item in a:
         print(item)
     return a
+
+
+def get_evaluated(file_name):
+    indexes = []
+    p = Path(file_name)
+    lines = p.read_text().splitlines()
+    index = 0
+    for line in lines:
+        if line.strip().endswith('#'):
+            indexes.append(index)
+        index += 1
+    index = 0
+    for i in indexes:
+        temp_catcher = {}
+        left_side = lines[i].split('=')[0].strip()
+        exec(p.read_text(), {}, temp_catcher)
+        # print(temp_catcher['c'])
+        temp_catcher = temp_catcher[left_side]
+        if isinstance(temp_catcher, str):
+            right_side = f"'{temp_catcher}'"
+        elif isinstance(temp_catcher, int):
+            right_side = f"{temp_catcher}"
+        else:
+            raise Exception(f"Cannot translate this type of data {type(temp_catcher)} {temp_catcher}")
+        lines[i] = left_side.strip() + " = " + right_side
+        index += 1
+    full_line_str = "\n".join(lines)
+    p.write_text(full_line_str)
+    print(f"edit written in file {p}")
