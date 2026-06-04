@@ -371,3 +371,9 @@ def get_evaluated(file_name):
     full_line_str = "\n".join(lines)
     p.write_text(full_line_str)
     print(f"edit written in file {p}")
+
+def get_multiple_keys_at_once(keys: list[int]) -> list[int]:
+    holder = []
+    for item in keys:
+        holder.append(get_key_address_int(item))
+    return holder
