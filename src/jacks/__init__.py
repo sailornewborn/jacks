@@ -335,6 +335,29 @@ def get_evaluated(file_name):
             right_side = f"'{temp_catcher}'"
         elif isinstance(temp_catcher, int):
             right_side = f"{temp_catcher}"
+        # currently we only want to support lists with all elements either str or int
+        elif isinstance(temp_catcher,list):
+            right_side = ""
+            supported_type = [int,str]
+            for ty in supported_type:
+                counter = 0
+                for item in temp_catcher:
+                    if isinstance(item,ty):
+                        counter += 1
+                if counter == len(temp_catcher):
+                    if ty is int:
+                        right_side += '['
+                        for element in temp_catcher:
+                            right_side += f"{element},"
+                        right_side += "]"
+                    elif ty is str:
+                        right_side += "["
+                        for element in temp_catcher:
+                            right_side += f"\"{element}\""
+                        right_side += "]"
+            if right_side == "":
+                raise Exception(f"The list has incompatible element(s) that is/are not any of {supported_type} types")
+
         else:
             raise Exception(f"Cannot translate this type of data {type(temp_catcher)} {temp_catcher}")
         lines[i] = left_side.strip() + " = " + right_side
