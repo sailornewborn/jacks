@@ -336,18 +336,18 @@ def get_evaluated(file_name):
         elif isinstance(temp_catcher, int):
             right_side = f"{temp_catcher}"
         # currently we only want to support lists with all elements either str or int
-        elif isinstance(temp_catcher,list):
+        elif isinstance(temp_catcher, list):
             right_side = ""
-            supported_type = [int,str]
+            supported_type = [int, str]
             for ty in supported_type:
                 counter = 0
                 for item in temp_catcher:
-                    if isinstance(item,ty):
+                    if isinstance(item, ty):
                         counter += 1
                 if counter == len(temp_catcher):
                     if ty is int:
                         right_side += '['
-                        for index,element in enumerate(temp_catcher):
+                        for index, element in enumerate(temp_catcher):
                             if index == len(temp_catcher) - 1:
                                 right_side += f"{element}"
                             else:
@@ -356,7 +356,7 @@ def get_evaluated(file_name):
                     elif ty is str:
                         right_side += "["
                         for index, element in enumerate(temp_catcher):
-                            if index == len(temp_catcher)-1:
+                            if index == len(temp_catcher) - 1:
                                 right_side += f"\"{element}\""
                             else:
                                 right_side += f"\"{element}\","
@@ -372,8 +372,20 @@ def get_evaluated(file_name):
     p.write_text(full_line_str)
     print(f"edit written in file {p}")
 
+
 def get_multiple_keys_at_once(keys: list[int]) -> list[int]:
     holder = []
     for item in keys:
         holder.append(get_key_address_int(item))
     return holder
+
+
+def get_comparison_report(item_A: list[int], item_B: list[int]) -> list[int]:
+    if len(item_A) == len(item_B):
+        report_holder = []
+        for index, item in enumerate(item_A):
+            distance = item - item_B[index]
+            report_holder.append(distance)
+        return report_holder
+    else:
+        raise Exception("Cannot proceed because the two lists have different size")
