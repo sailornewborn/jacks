@@ -389,3 +389,15 @@ def get_comparison_report(item_A: list[int], item_B: list[int]) -> list[int]:
         return report_holder
     else:
         raise Exception("Cannot proceed because the two lists have different size")
+
+
+def get_distance_report_for_sequence(sequence: list[int]) -> list[int]:
+    report_holder = []
+    if len(sequence) < 2:
+        raise Exception("Sequence size is less than 2")
+    for index, item in enumerate(sequence):
+        if index == len(sequence) - 2:
+            report_holder.append(item - sequence[index + 1])
+            return report_holder
+        else:
+            report_holder.append(item - sequence[index + 1])
