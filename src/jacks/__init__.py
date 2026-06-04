@@ -347,13 +347,19 @@ def get_evaluated(file_name):
                 if counter == len(temp_catcher):
                     if ty is int:
                         right_side += '['
-                        for element in temp_catcher:
-                            right_side += f"{element},"
+                        for index,element in enumerate(temp_catcher):
+                            if index == len(temp_catcher) - 1:
+                                right_side += f"{element}"
+                            else:
+                                right_side += f"{element},"
                         right_side += "]"
                     elif ty is str:
                         right_side += "["
-                        for element in temp_catcher:
-                            right_side += f"\"{element}\""
+                        for index, element in enumerate(temp_catcher):
+                            if index == len(temp_catcher)-1:
+                                right_side += f"\"{element}\""
+                            else:
+                                right_side += f"\"{element}\","
                         right_side += "]"
             if right_side == "":
                 raise Exception(f"The list has incompatible element(s) that is/are not any of {supported_type} types")
