@@ -401,3 +401,12 @@ def get_distance_report_for_sequence(sequence: list[int]) -> list[int]:
             return report_holder
         else:
             report_holder.append(item - sequence[index + 1])
+
+def get_list_int_splitted(data: list[int]) -> list[list[int]]:
+    final_holder = []
+    for i in data:
+        str_version = str(i)
+        list_version = list(str_version)
+        temp_final = [int(e) for e in list_version]
+        final_holder.append(temp_final)
+    return final_holder
