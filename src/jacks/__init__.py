@@ -410,3 +410,9 @@ def get_list_int_splitted(data: list[int]) -> list[list[int]]:
         temp_final = [int(e) for e in list_version]
         final_holder.append(temp_final)
     return final_holder
+
+def get_multiple_add_str_from_str_data(data: str) -> str:
+    tokens = data.split()
+    adds = [str(get_key_address_int(int(i))) for i in tokens]
+    final = " ".join(adds)
+    return final
