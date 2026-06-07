@@ -402,6 +402,7 @@ def get_distance_report_for_sequence(sequence: list[int]) -> list[int]:
         else:
             report_holder.append(item - sequence[index + 1])
 
+
 def get_list_int_splitted(data: list[int]) -> list[list[int]]:
     final_holder = []
     for i in data:
@@ -411,8 +412,63 @@ def get_list_int_splitted(data: list[int]) -> list[list[int]]:
         final_holder.append(temp_final)
     return final_holder
 
+
 def get_multiple_add_str_from_str_data(data: str) -> str:
     tokens = data.split()
     adds = [str(get_key_address_int(int(i))) for i in tokens]
     final = " ".join(adds)
     return final
+
+
+def get_distance_relative_to_first(data: list[int]) -> list[int]:
+    holder = []
+    for index, item in enumerate(data):
+        if index == 0:
+            holder.append(item)
+        else:
+            holder.append(abs(data[index] - data[0]))
+    return holder
+
+
+def get_index_of_closest_one(data: list[int]) -> int:
+    holder = []
+    for index, item in enumerate(data[1:]):
+        if len(holder) == 0:
+            holder = [index + 1, item]
+        else:
+            if item < holder[1]:
+                # print(f"{item} < {holder[1]}")
+                holder = [index + 1, item]
+            else:
+                ...
+    return holder[0]
+
+
+class Trio:
+    # the first key would be the reference
+    def __init__(self, three_keys: list[int]):
+        self.three_keys = three_keys
+        self.adds = None
+        self.true_closer_one = None
+        self.fake_closer_one = None
+        self.get_adds()
+        self.get_closers()
+
+    def get_adds(self):
+        self.adds = get_multiple_keys_at_once(self.three_keys)
+
+    def get_closers(self):
+        # first we get the fake one
+        headers = get_distance_relative_to_first(self.three_keys)
+        footers = get_distance_relative_to_first(self.adds)
+        # print(headers)
+        # print(footers)
+        #     header one is real and footer one is fake
+        self.true_closer_one = get_index_of_closest_one(headers)
+        self.fake_closer_one = get_index_of_closest_one(footers)
+
+    def get_debug_report(self):
+        print(self.three_keys)
+        print(self.true_closer_one)
+        print(self.adds)
+        print(self.fake_closer_one)
