@@ -472,3 +472,8 @@ class Trio:
         print(self.true_closer_one)
         print(self.adds)
         print(self.fake_closer_one)
+
+def get_length(data) -> int:
+    str_version = str(data)
+    length = len(str_version)
+    return length
