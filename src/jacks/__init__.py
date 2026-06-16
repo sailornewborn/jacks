@@ -473,7 +473,30 @@ class Trio:
         print(self.adds)
         print(self.fake_closer_one)
 
+
 def get_length(data) -> int:
     str_version = str(data)
     length = len(str_version)
     return length
+
+
+def get_villa(number: int, brackets: int = 5):
+    if number == 0:
+        return False
+    remain = number % brackets
+    add = ""
+    for i in range(brackets):
+        real_i = i + 1
+        if remain == real_i:
+            add += "[x]"
+        else:
+            add += "[ ]"
+    if remain == 0:
+        stuff = ""
+        for i in range(brackets):
+            if i == brackets - 1:
+                stuff += "[x]"
+            else:
+                stuff += "[ ]"
+        return stuff
+    return add
