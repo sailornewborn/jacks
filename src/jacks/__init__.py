@@ -500,3 +500,52 @@ def get_villa(number: int, brackets: int = 5):
                 stuff += "[ ]"
         return stuff
     return add
+
+
+class GetMapEmpty:
+    def __init__(self, size: tuple = (5, 4)):
+        if len(size) != 2:
+            raise Exception("The size is not of 2")
+        for axis in size:
+            if axis == 0:
+                raise Exception("One of the two axes is the value of 0")
+        self.x = size[0]
+        self.y = size[1]
+        self.map_empty = ""
+        self.marks = []
+
+    def get_address_marked(self, location: tuple, marker: str = "x"):
+        add_marked = []
+        if len(location) != 2:
+            raise Exception("Location is not the size of 2")
+        if len(marker) != 1:
+            raise Exception("Marker should be one char only")
+
+        add_marked.append(location[0])
+        add_marked.append(location[1])
+        add_marked.append(marker)
+        self.marks.append(add_marked)
+
+    def get_map_complete(self) -> str:
+        for yy in range(self.y):
+            y_empty = ""
+            for xx in range(self.x):
+                is_added = False
+                for dataset in self.marks:
+                    if dataset[0] == xx and dataset[1] == yy:
+                        y_empty += f"[{dataset[2]}]"
+                        is_added = True
+                if not is_added:
+                    y_empty += "[ ]"
+            y_empty += "\n"
+            self.map_empty += y_empty
+        return self.map_empty
+
+    def get_map_exported_to_file(self, file_path: str, to_overwrite: bool = False):
+        p = Path(file_path)
+        if p.exists():
+            if not to_overwrite:
+                raise Exception(f"File path already exists [{p}]")
+        stuff_to_be_written = self.get_map_complete()
+        p.write_text(stuff_to_be_written)
+        print(f"Done writing to file [{p}]")
