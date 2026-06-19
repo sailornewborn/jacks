@@ -549,3 +549,24 @@ class GetMapEmpty:
         stuff_to_be_written = self.get_map_complete()
         p.write_text(stuff_to_be_written)
         print(f"Done writing to file [{p}]")
+
+
+class GetSequenceAllocator:
+    def __init__(self):
+        self.sequences = []
+
+    def __setitem__(self, key, value):
+        if len(self.sequences) > key >= 0:
+            self.sequences[key] = value
+        elif key >= len(self.sequences):
+            while len(self.sequences) < key + 1:
+                self.sequences.append(0)
+            self.sequences[key] = value
+        else:
+            raise Exception("Unknown index")
+
+    def __getitem__(self, item):
+        if len(self.sequences) > item >= 0:
+            return self.sequences[item]
+        else:
+            raise Exception("Out of index")
