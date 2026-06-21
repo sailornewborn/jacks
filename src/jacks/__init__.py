@@ -7,6 +7,7 @@ from base58 import b58decode_check
 from random import choice
 import requests
 import tomllib
+from json import loads
 from jacks.revolver import *
 import psutil
 from socket import AF_INET
@@ -589,3 +590,12 @@ def get_datas():
     file_names = [f.name for f in files]
     for f in file_names:
         print(f"Data: {f}")
+
+def get_datas_load(name: str) -> dict:
+    folder_path = Path(__file__).parent / "datas"
+    possible_file = (folder_path / name)
+    if possible_file.exists():
+        return loads(possible_file.read_text())
+    else:
+        raise Exception("Data does not exist")
+
