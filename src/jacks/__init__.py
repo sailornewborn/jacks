@@ -570,3 +570,11 @@ class GetSequenceAllocator:
             return self.sequences[item]
         else:
             raise Exception("Out of index")
+
+class GetExecuted:
+    def __init__(self):
+        ...
+    def logic(self):
+        ...
+    def execute(self):
+        self.logic()
