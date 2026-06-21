@@ -584,7 +584,7 @@ class GetExecuted:
 
 
 def get_datas():
-    folder_path = Path(__file__) / "datas"
+    folder_path = Path(__file__).parent / "datas"
     files = [f for f in folder_path.iterdir() if f.is_file()]
     file_names = [f.name for f in files]
     for f in file_names:
