@@ -602,8 +602,11 @@ def get_datas_load(name: str) -> dict:
         raise Exception("Data does not exist")
 
 
-def get_random_combo(length: int, is_unique: bool = True) -> str:
-    holder = []
-    for i in range(length):
-        holder.append(choice(list(ascii_letters)))
-    return "".join(holder)
+def get_random_combo(length: int, group_size=1) -> list[str]:
+    larger_holder = []
+    for g in range(group_size):
+        holder = []
+        for i in range(length):
+            holder.append(choice(list(ascii_letters)))
+        larger_holder.append(''.join(holder))
+    return larger_holder
