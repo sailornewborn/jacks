@@ -13,6 +13,7 @@ import psutil
 from socket import AF_INET
 from site import getsitepackages
 from jacks.walker import *
+from string import ascii_letters
 
 
 def get_key(data: int) -> Key:
@@ -591,6 +592,7 @@ def get_datas():
     for f in file_names:
         print(f"Data: {f}")
 
+
 def get_datas_load(name: str) -> dict:
     folder_path = Path(__file__).parent / "datas"
     possible_file = (folder_path / name)
@@ -599,3 +601,9 @@ def get_datas_load(name: str) -> dict:
     else:
         raise Exception("Data does not exist")
 
+
+def get_random_combo(length: int, is_unique: bool = True) -> str:
+    holder = []
+    for i in range(length):
+        holder.append(choice(list(ascii_letters)))
+    return "".join(holder)
