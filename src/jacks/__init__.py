@@ -621,3 +621,23 @@ def get_random_binary_combo(length: int, group_size=1) -> list[str]:
             van.append(choice(candidates))
         ship.append("".join(van))
     return ship
+
+
+class Binary:
+    def __init__(self, data):
+        self.data = None
+        self.saves = []
+        if isinstance(data, int):
+            self.data = bin(data)[2:]
+        if isinstance(data, str):
+            self.data = data
+
+    def __str__(self):
+        return self.data
+
+    def __getitem__(self, item):
+        self.saves.append(self.data)
+        if isinstance(item, slice):
+            self.data = self.data[item.start:item.stop:item.step]
+        else:
+            pass
