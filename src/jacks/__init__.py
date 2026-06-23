@@ -610,3 +610,14 @@ def get_random_combo(length: int, group_size=1) -> list[str]:
             holder.append(choice(list(ascii_letters)))
         larger_holder.append(''.join(holder))
     return larger_holder
+
+
+def get_random_binary_combo(length: int, group_size=1) -> list[str]:
+    ship = []
+    candidates = ["1", "0"]
+    for l in range(group_size):
+        van = []
+        for e in range(length):
+            van.append(choice(candidates))
+        ship.append(van)
+    return ship
