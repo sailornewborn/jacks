@@ -619,5 +619,5 @@ def get_random_binary_combo(length: int, group_size=1) -> list[str]:
         van = []
         for e in range(length):
             van.append(choice(candidates))
-        ship.append(van)
+        ship.append("".join(van))
     return ship
