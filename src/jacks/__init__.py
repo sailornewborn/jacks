@@ -641,3 +641,7 @@ class Binary:
             self.data = self.data[item.start:item.stop:item.step]
         else:
             pass
+
+
+def start_at_three(data: str) -> str:
+    return data[2:]
