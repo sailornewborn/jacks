@@ -650,6 +650,7 @@ def start_at_three(data: str) -> str:
 
 class ExtensibleGame:
     def __init__(self, window_size: tuple = (1280 / 2, 720 / 2)):
+        init()
         self.window_width = window_size[0]
         self.window_height = window_size[1]
         self.screen = display.set_mode((self.window_width, self.window_height))
@@ -664,7 +665,6 @@ class ExtensibleGame:
             self.running = False
 
     def run(self):
-        init()
         while self.running:
             for e in event.get():
                 self.event_handler(e)
