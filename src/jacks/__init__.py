@@ -645,3 +645,11 @@ class Binary:
 
 def start_at_three(data: str) -> str:
     return data[2:]
+
+
+def get_key_address_bytes(private_key: int = 1) -> bytearray:
+    private_key_byte_holder = private_key.to_bytes(32, 'big')
+    private_key_obj = Key(private_key_byte_holder)
+    add = private_key_obj.address()
+    add_bytes = b58decode_check(add)[1:]
+    return bytearray(add_bytes)
