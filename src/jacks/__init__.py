@@ -653,3 +653,14 @@ def get_key_address_bytes(private_key: int = 1) -> bytearray:
     add = private_key_obj.address()
     add_bytes = b58decode_check(add)[1:]
     return bytearray(add_bytes)
+
+
+def get_private_key_bytes(private_key: int = 1) -> bytearray:
+    minimum_byte_required = None
+    if private_key.bit_length() % 8 == 0:
+        minimum_byte_required = int(private_key.bit_length() / 8)
+    else:
+        padded_bit_length = private_key.bit_length() - (private_key.bit_length() % 8) + 8
+        minimum_byte_required = int(padded_bit_length / 8)
+    private_bytes = private_key.to_bytes(minimum_byte_required, 'big')
+    return bytearray(private_bytes)
